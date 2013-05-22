@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>frames</key>
+	<dict>
+		<key>Character Boy.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{17, 63}, {67, 89}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -22}</string>
+			<key>spriteSize</key>
+			<string>{67, 89}</string>
+			<key>spriteSourceSize</key>
+			<string>{101, 171}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{436, 0}, {67, 89}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>Character Cat Girl.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{17, 61}, {69, 91}}</string>
+			<key>spriteOffset</key>
+			<string>{1, -21}</string>
+			<key>spriteSize</key>
+			<string>{69, 91}</string>
+			<key>spriteSourceSize</key>
+			<string>{101, 171}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{351, 0}, {69, 91}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>Character Horn Girl.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{7, 61}, {77, 91}}</string>
+			<key>spriteOffset</key>
+			<string>{-5, -21}</string>
+			<key>spriteSize</key>
+			<string>{77, 91}</string>
+			<key>spriteSourceSize</key>
+			<string>{101, 171}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{327, 232}, {77, 91}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>Character Pink Girl.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{13, 62}, {77, 89}}</string>
+			<key>spriteOffset</key>
+			<string>{1, -21}</string>
+			<key>spriteSize</key>
+			<string>{77, 89}</string>
+			<key>spriteSourceSize</key>
+			<string>{101, 171}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{349, 107}, {77, 89}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>Character Princess Girl.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{13, 52}, {75, 99}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -16}</string>
+			<key>spriteSize</key>
+			<string>{75, 99}</string>
+			<key>spriteSourceSize</key>
+			<string>{101, 171}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{240, 347}, {75, 99}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>Enemy Bug.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 77}, {99, 77}}</string>
+			<key>spriteOffset</key>
+			<string>{-1, -30}</string>
+			<key>spriteSize</key>
+			<string>{99, 77}</string>
+			<key>spriteSourceSize</key>
+			<string>{101, 171}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{234, 232}, {77, 99}}</string>
+			<key>textureRotated</key>
+			<true/>
+		</dict>
+		<key>Gem Orange.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 58}, {101, 113}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -29}</string>
+			<key>spriteSize</key>
+			<string>{101, 113}</string>
+			<key>spriteSourceSize</key>
+			<string>{101, 171}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{0, 284}, {101, 113}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>Gem Blue.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 58}, {101, 113}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -29}</string>
+			<key>spriteSize</key>
+			<string>{101, 113}</string>
+			<key>spriteSourceSize</key>
+			<string>{101, 171}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{117, 117}, {101, 113}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>Gem Green.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 58}, {101, 113}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -29}</string>
+			<key>spriteSize</key>
+			<string>{101, 113}</string>
+			<key>spriteSourceSize</key>
+			<string>{101, 171}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{117, 0}, {113, 101}}</string>
+			<key>textureRotated</key>
+			<true/>
+		</dict>
+		<key>Heart.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{7, 48}, {89, 91}}</string>
+			<key>spriteOffset</key>
+			<string>{1, -8}</string>
+			<key>spriteSize</key>
+			<string>{89, 91}</string>
+			<key>spriteSourceSize</key>
+			<string>{101, 171}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{246, 0}, {89, 91}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>Key.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{18, 57}, {59, 99}}</string>
+			<key>spriteOffset</key>
+			<string>{-3, -21}</string>
+			<key>spriteSize</key>
+			<string>{59, 99}</string>
+			<key>spriteSourceSize</key>
+			<string>{101, 171}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{420, 212}, {59, 99}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>Rock.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+				<string>Rock Alias.png</string>
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{2, 66}, {99, 99}}</string>
+			<key>spriteOffset</key>
+			<string>{1, -30}</string>
+			<key>spriteSize</key>
+			<string>{99, 99}</string>
+			<key>spriteSourceSize</key>
+			<string>{101, 171}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{234, 117}, {99, 99}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>SpeechBubble.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 64}, {101, 107}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -32}</string>
+			<key>spriteSize</key>
+			<string>{101, 107}</string>
+			<key>spriteSourceSize</key>
+			<string>{101, 171}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{117, 246}, {101, 107}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>Star.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 52}, {101, 101}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -17}</string>
+			<key>spriteSize</key>
+			<string>{101, 101}</string>
+			<key>spriteSourceSize</key>
+			<string>{101, 171}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{123, 369}, {101, 101}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>Tree Short.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{1, 55}, {99, 107}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -23}</string>
+			<key>spriteSize</key>
+			<string>{99, 107}</string>
+			<key>spriteSourceSize</key>
+			<string>{101, 171}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{0, 413}, {107, 99}}</string>
+			<key>textureRotated</key>
+			<true/>
+		</dict>
+		<key>Tree Tall.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 32}, {101, 137}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -15}</string>
+			<key>spriteSize</key>
+			<string>{101, 137}</string>
+			<key>spriteSourceSize</key>
+			<string>{101, 171}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{0, 0}, {101, 137}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		<key>Tree Ugly.png</key>
+		<dict>
+			<key>aliases</key>
+			<array/>
+			<key>spriteColorRect</key>
+			<string>{{0, 54}, {101, 115}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -26}</string>
+			<key>spriteSize</key>
+			<string>{101, 115}</string>
+			<key>spriteSourceSize</key>
+			<string>{101, 171}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{0, 153}, {101, 115}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>metadata</key>
+	<dict>
+		<key>version</key>
+		<string>1.5.5</string>
+		<key>format</key>
+		<integer>3</integer>
+		<key>size</key>
+		<string>{512, 512}</string>
+		<key>name</key>
+		<string>GLImageMap.zwd</string>
+		<key>premultipliedAlpha</key>
+		<false/>
+		<key>target</key>
+		<dict>
+			<key>name</key>
+			<string>default</string>
+			<key>textureFileName</key>
+			<string>lostgarden</string>
+			<key>textureFileExtension</key>
+			<string>.png</string>
+			<key>coordinatesFileName</key>
+			<string>lostgarden</string>
+			<key>coordinatesFileExtension</key>
+			<string>.plist</string>
+			<key>premultipliedAlpha</key>
+			<false/>
+		</dict>
+	</dict>
+</dict>
+</plist>
