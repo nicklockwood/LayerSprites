@@ -352,6 +352,7 @@
 				0103DA36174A2F29007C0D31 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -2,7 +2,7 @@
 //  LSImageMap.h
 //
 //  LayerSprites Project
-//  Version 1.0
+//  Version 1.0.1
 //
 //  Created by Nick Lockwood on 18/05/2013.
 //  Copyright 2013 Charcoal Design
@@ -173,7 +173,7 @@
     CGFloat scale = image.scale / plistScale;
     
     NSPropertyListFormat format = 0;
-    NSDictionary *dict = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:&format error:NULL];
+    NSDictionary *dict = data? [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:&format error:NULL]: nil;
     if (dict && [dict isKindOfClass:[NSDictionary class]])
     {
         if (!image)
@@ -185,11 +185,32 @@
             NSDictionary *metadata = dict[@"metadata"];
             if (metadata)
             {
-                //get image path from metadata
-                NSString *imageFile = [metadata valueForKeyPath:@"target.textureFileName"];
-                NSString *extension = [metadata valueForKeyPath:@"target.textureFileExtension"];
-                if ([extension hasPrefix:@"."]) extension = [extension substringFromIndex:1];
-                path = [[[path ?: @"" stringByDeletingLastPathComponent] stringByAppendingPathComponent:imageFile] stringByAppendingPathExtension:extension];
+                //get image file from metadata
+                NSString *imageFile = metadata[@"textureFileName"];
+                if (!imageFile)
+                {
+                    NSDictionary *target = metadata[@"target"];
+                    if (target)
+                    {
+                        imageFile = target[@"textureFileName"];
+                        NSString *extension = target[@"textureFileExtension"];
+                        if (imageFile && extension)
+                        {
+                            if ([extension hasPrefix:@"."])
+                            {
+                                imageFile = [imageFile stringByAppendingString:extension];
+                            }
+                            else
+                            {
+                                imageFile = [imageFile stringByAppendingPathExtension:extension];
+                            }
+                        }
+                    }
+                    if (!imageFile) imageFile = [path lastPathComponent];
+                }
+                
+                //load image
+                path = [[path ?: @"" stringByDeletingLastPathComponent] stringByAppendingPathComponent:imageFile];
                 image = [UIImage imageWithContentsOfFile:[path LS_normalizedPathWithDefaultExtension:@"png"]];
     
                 //set scale
