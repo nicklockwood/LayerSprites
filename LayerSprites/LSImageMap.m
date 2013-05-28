@@ -237,23 +237,23 @@
                 {
                     for (NSString *name in frames)
                     {
-                        NSDictionary *spriteDict = frames[name];
+                        NSDictionary *sprite = frames[name];
                         
                         //get contents rect
-                        CGRect contentsRect = CGRectFromString(spriteDict[@"textureRect"]);
+                        CGRect contentsRect = CGRectFromString(sprite[@"textureRect"] ?: sprite[@"frame"]);
                         contentsRect.origin.x /= width;
                         contentsRect.origin.y /= height;
                         contentsRect.size.width /= width;
                         contentsRect.size.height /= height;
                         
                         //get rotation
-                        BOOL rotated = [spriteDict[@"textureRotated"] boolValue];
+                        BOOL rotated = [sprite[@"textureRotated"] ?: sprite[@"rotated"] boolValue];
                         
                         //get offset
                         CGPoint anchorPoint = CGPointMake(0.5f, 0.5f);
-                        if (spriteDict[@"spriteOffset"])
+                        CGSize offset = CGSizeFromString(sprite[@"spriteOffset"] ?: sprite[@"offset"]);
+                        if (!CGSizeEqualToSize(offset, CGSizeZero))
                         {
-                            CGSize offset = CGSizeFromString(spriteDict[@"spriteOffset"]);
                             if (rotated)
                             {
                                 anchorPoint.x -= offset.height / (contentsRect.size.width * width);
@@ -274,7 +274,7 @@
 
                         //and image and aliases
                         [self addImage:subimage withName:name];
-                        for (NSString *alias in spriteDict[@"aliases"])
+                        for (NSString *alias in sprite[@"aliases"])
                         {
                             [self addImage:subimage withName:alias];
                         }
