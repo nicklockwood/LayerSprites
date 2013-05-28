@@ -212,7 +212,7 @@
                 //load image
                 path = [[path ?: @"" stringByDeletingLastPathComponent] stringByAppendingPathComponent:imageFile];
                 image = [UIImage imageWithContentsOfFile:[path LS_normalizedPathWithDefaultExtension:@"png"]];
-    
+                
                 //set scale
                 scale = (CGImageGetWidth(image.CGImage) / CGSizeFromString(metadata[@"size"]).width) ?: (image.scale / plistScale);
             }
@@ -248,6 +248,11 @@
                         
                         //get rotation
                         BOOL rotated = [sprite[@"textureRotated"] ?: sprite[@"rotated"] boolValue];
+                        if (rotated && sprite[@"frame"])
+                        {
+                            contentsRect.size = CGSizeMake(contentsRect.size.height * height / width,
+                                                           contentsRect.size.width * width / height);
+                        }
                         
                         //get offset
                         CGPoint anchorPoint = CGPointMake(0.5f, 0.5f);
@@ -271,7 +276,7 @@
                                                          contentsRect:contentsRect
                                                           anchorPoint:anchorPoint
                                                               rotated:rotated];
-
+                        
                         //and image and aliases
                         [self addImage:subimage withName:name];
                         for (NSString *alias in sprite[@"aliases"])
