@@ -30,14 +30,13 @@
 - (void)drawRect:(CGRect)rect
 {
     CGPoint offset = CGPointZero;
-    for (int i = 0; i < [_imageMap imageCount]; i++)
+    for (NSString *name in self.imageMap)
     {
         //draw frame
         UIRectFrame(CGRectMake(offset.x, offset.y, SPACING.width, SPACING.height));
         
         //draw sprite
-        LSImage *image = [_imageMap imageAtIndex:i];
-        [image drawAtPoint:CGPointMake(offset.x + SPACING.width/2, offset.y + SPACING.height/2)];
+        [self.imageMap[name] drawAtPoint:CGPointMake(offset.x + SPACING.width/2, offset.y + SPACING.height/2)];
 
         //update offset
         offset.x += SPACING.width;

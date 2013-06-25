@@ -2,7 +2,7 @@
 //  LSImageMap.h
 //
 //  LayerSprites Project
-//  Version 1.0.1
+//  Version 1.1
 //
 //  Created by Nick Lockwood on 18/05/2013.
 //  Copyright 2013 Charcoal Design
@@ -34,7 +34,7 @@
 #import "LSImage.h"
 
 
-@interface LSImageMap : NSObject
+@interface LSImageMap : NSObject <NSFastEnumeration>
 
 + (LSImageMap *)imageMapWithContentsOfFile:(NSString *)nameOrPath;
 + (LSImageMap *)imageMapWithUIImage:(UIImage *)image data:(NSData *)data;
@@ -46,5 +46,8 @@
 - (NSString *)imageNameAtIndex:(NSInteger)index;
 - (LSImage *)imageAtIndex:(NSInteger)index;
 - (LSImage *)imageNamed:(NSString *)name;
+
+- (LSImage *)objectAtIndexedSubscript:(NSInteger)index;
+- (LSImage *)objectForKeyedSubscript:(NSString *)name;
 
 @end

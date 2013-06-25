@@ -26,10 +26,10 @@
     
     self.imageMap = [LSImageMap imageMapWithContentsOfFile:@"lostgarden.plist"];
     
-    for (int i = 0; i < [_imageMap imageCount]; i++)
+    for (NSString *name in self.imageMap)
     {
         //get sprite
-        LSImage *image = [_imageMap imageAtIndex:i];
+        LSImage *image = self.imageMap[name];
         
         //create border layer
         CALayer *border = [CALayer layer];

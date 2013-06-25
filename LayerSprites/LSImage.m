@@ -2,7 +2,7 @@
 //  LSImage.m
 //
 //  LayerSprites Project
-//  Version 1.0.1
+//  Version 1.1
 //
 //  Created by Nick Lockwood on 18/05/2013.
 //  Copyright 2013 Charcoal Design

@@ -20,8 +20,6 @@
 
 @implementation ViewController
 
-@synthesize imageMap = _imageMap;
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -48,10 +46,11 @@
                                             options:nil] lastObject];
     }
     
-    //set image (note that we don't set the dimensions here)
+    //get name
     NSString *name = [self.imageMap imageNameAtIndex:indexPath.row];
-    LSImage *image = [self.imageMap imageNamed:name];
-    [[cell viewWithTag:1].layer setContentsWithLSImage:image];
+    
+    //set image (note that we don't set the dimensions here)
+    [[cell viewWithTag:1].layer setContentsWithLSImage:self.imageMap[name]];
     
     //set text
     ((UILabel *)[cell viewWithTag:2]).text = name;

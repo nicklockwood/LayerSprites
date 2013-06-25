@@ -133,15 +133,30 @@ This method returns the number of images in the image map.
     
     - (NSString *)imageNameAtIndex:(NSInteger)index;
     
-This method returns the image name at the specified index. Note that image map images are unordered, so do not assume that the image order will match the order of images in the file that was loaded. If you wish to access image map images in a specific order, it is a good idea to name them numerically.
+This method returns the image name at the specified index. Image names are sorted alphabetically, and do not neccesarily reflect the order in which they appear in the sprite sheet file.
     
     - (LSImage *)imageAtIndex:(NSInteger)index;
+    - (LSImage *)objectAtIndexedSubscript:(NSInteger)index;
     
-This method returns the image map image at the specified index. Note that image map images are unordered, so do not assume that the image order will match the order of images in the file that was loaded. If you wish to access image map images in a specific order, it is a good idea to name them numerically.
+These methods return the image map image at the specified index. Both methods behave the same way, but the second is included to support object subscripting, allowing the sprite to be accessed using the `spritemap[index]` syntax. Image map images are sorted alphabetically, and do not neccesarily reflect the order in which they appear in the sprite sheet file. If you wish to access the images in a specific order, it is a good idea to name them numerically, padded to the same length with zeros.
     
     - (LSImage *)imageNamed:(NSString *)name;
+    - (LSImage *)objectForKeyedSubscript:(NSString *)name;
     
-This method returns the image map image with the specified name. Depending on the tool used to generate the image map data file, the names may include a file extension. If you do not include a file extension in the image name, png is assumed.
+These methods return the image map image with the specified name. Both methods behave the same way, but the second is included to support object subscripting, allowing the sprite to be accessed using the `spritemap[@"spriteName"]` syntax. Depending on the tool used to generate the image map data file, the name may include a file extension. If you do not include a file extension in the name parameter, png is assumed.
+
+
+Fast enumeration
+--------------------
+
+LSImageMap supports fast enumeration, so you can easily iterate through the sprites in your map using the following syntax:
+
+    LSImageMap *imageMap = [LSImageMap imageMapWithContentsOfFile:@"foo.plist"];
+    for (NSString *name in imageMap)
+    {
+        LSImageSprite *sprite = imageMap[name];
+        //do something with sprite
+    }
 
 
 Using image sprites with CALayer

@@ -2,7 +2,7 @@
 //  LSImageMap.h
 //
 //  LayerSprites Project
-//  Version 1.0.1
+//  Version 1.1
 //
 //  Created by Nick Lockwood on 18/05/2013.
 //  Copyright 2013 Charcoal Design
@@ -132,6 +132,7 @@
 
 @interface LSImageMap ()
 
+@property (nonatomic, strong) NSArray *imageNames;
 @property (nonatomic, strong) NSMutableDictionary *imagesByName;
 
 @end
@@ -278,12 +279,15 @@
                                                               rotated:rotated];
                         
                         //and image and aliases
-                        [self addImage:subimage withName:name];
+                        self.imagesByName[name] = subimage;
                         for (NSString *alias in sprite[@"aliases"])
                         {
-                            [self addImage:subimage withName:alias];
+                            self.imagesByName[alias] = subimage;
                         }
                     }
+                    
+                    //set sorted image names
+                    self.imageNames = [[self.imagesByName allKeys] sortedArrayUsingSelector:@selector(compare:)];
                 }
                 return self;
             }
@@ -311,11 +315,6 @@
     return [self initWithUIImage:image path:nil data:data];
 }
 
-- (void)addImage:(LSImage *)image withName:(NSString *)name
-{
-    self.imagesByName[name] = image;
-}
-
 - (NSInteger)imageCount
 {
     return [self.imagesByName count];
@@ -323,12 +322,12 @@
 
 - (NSString *)imageNameAtIndex:(NSInteger)index
 {
-    return [self.imagesByName allKeys][index];
+    return self.imageNames[index];
 }
 
 - (LSImage *)imageAtIndex:(NSInteger)index
 {
-    return [self imageNamed:[self imageNameAtIndex:index]];
+    return self.imagesByName[self.imageNames[index]];
 }
 
 - (LSImage *)imageNamed:(NSString *)name
@@ -339,6 +338,21 @@
         return self.imagesByName[[name stringByAppendingPathExtension:@"png"]];
     }
     return image;
+}
+
+- (LSImage *)objectAtIndexedSubscript:(NSInteger)index
+{
+    return [self imageAtIndex:index];
+}
+
+- (LSImage *)objectForKeyedSubscript:(NSString *)name
+{
+    return [self imageNamed:name];
+}
+
+- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id __unsafe_unretained [])buffer count:(NSUInteger)len
+{
+    return [self.imageNames countByEnumeratingWithState:state objects:buffer count:len];
 }
 
 @end
