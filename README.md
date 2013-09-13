@@ -7,7 +7,7 @@ LayerSprites is a library designed to simplify the use of sprite sheets (image m
 Supported OS & SDK Versions
 -----------------------------
 
-* Supported build target - iOS 6.1 / Mac OS 10.8 (Xcode 4.6.2, Apple LLVM compiler 4.2)
+* Supported build target - iOS 7.0 / Mac OS 10.8 (Xcode 5.0, Apple LLVM compiler 5.0)
 * Earliest supported deployment target - iOS 5.0 / Mac OS 10.7
 * Earliest compatible deployment target - iOS 4.3 / Mac OS 10.6
 
@@ -36,6 +36,8 @@ The LayerSprites library currently includes the following classes:
 - LSImage - this is a class for representing an image file with associated clipping and transform data. It supports all the same image formats as UIImage, and most of the same methods.
 
 - LSImageMap - this is a class for loading image maps, also known as image atlases or spritemaps.
+
+- LSImageView - this is a UIView subclass designed to make it easier to display LSImage sprites in your app.
 
 
 LSImage properties
@@ -120,7 +122,7 @@ The LSImageMap class has the following methods:
     + (LSImageMap *)imageMapWithContentsOfFile:(NSString *)nameOrPath;
     - (LSImageMap *)initWithContentsOfFile:(NSString *)nameOrPath;
     
-These methods are used to create a LSImageMap from a file. The parameter can be an absolute or relative file path (relative paths are assumed to be inside the application bundle). If the file extension is omitted it is assumed to be .plist. Currently the only image map file format that is supported is the Cocos2D sprite map format, which can be exported by tools such as Zwoptex or TexturePacker. LSImageMap fully supports rotated and trimmed images, as well as image aliases. It will automatically detect @2x Retina imagemap files and files with the ~ipad suffix.
+These methods are used to create a LSImageMap from a file. The parameter can be an absolute or relative file path (relative paths are assumed to be inside the application bundle). If the file extension is omitted it is assumed to be and Xcode 5 .atlasc file (see "Using Xcode 5 / SpriteKit texture atlasses" below), or a .plist. Currently the only image map file formats that are supported are the Xcode 5 / SpriteKit texture atlas format, and the Cocos2D sprite map format, which can be exported by tools such as Zwoptex or TexturePacker. LSImageMap fully supports rotated and trimmed images, as well as image aliases. It will automatically detect @2x Retina imagemap files and files with the ~ipad suffix.
 
     + (LSImageMap *)imageMapWithUIImage:(UIImage *)image data:(NSData *)data;    
     - (LSImageMap *)initWithUIImage:(UIImage *)image data:(NSData *)data;
@@ -133,7 +135,7 @@ This method returns the number of images in the image map.
     
     - (NSString *)imageNameAtIndex:(NSInteger)index;
     
-This method returns the image name at the specified index. Image names are sorted alphabetically, and do not neccesarily reflect the order in which they appear in the sprite sheet file.
+This method returns the image name at the specified index. Image names are sorted alphabetically, and do not necessarily reflect the order in which they appear in the sprite sheet file.
     
     - (LSImage *)imageAtIndex:(NSInteger)index;
     - (LSImage *)objectAtIndexedSubscript:(NSInteger)index;
@@ -144,6 +146,22 @@ These methods return the image map image at the specified index. Both methods be
     - (LSImage *)objectForKeyedSubscript:(NSString *)name;
     
 These methods return the image map image with the specified name. Both methods behave the same way, but the second is included to support object subscripting, allowing the sprite to be accessed using the `spritemap[@"spriteName"]` syntax. Depending on the tool used to generate the image map data file, the name may include a file extension. If you do not include a file extension in the name parameter, png is assumed.
+
+
+LSImageView methods
+----------------------
+
+    - (instancetype)initWithImage:(LSImage *)image;
+
+This creates a new LSImageView with the specified image. The contentMode is set to UIViewContentModeCenter. The frame is set to the minimum size neccesary to display the entire image without clipping (if clipsToBounds were enabled), which may be larger than the size of the sprite itself if the sprite's anchorPoint is not in the center.
+
+
+LSImageView properties
+----------------------
+
+    @property (nonatomic, strong) LSImage *image;
+
+This property can be used to set the image. It will not resize the view.
 
 
 Fast enumeration
@@ -159,10 +177,23 @@ LSImageMap supports fast enumeration, so you can easily iterate through the spri
     }
 
 
-Using image sprites with CALayer
-----------------------------------
+Displaying image sprites in your app
+---------------------------------------
 
-There are a number of ways to display sprite image loaded using LayerSprites. The typical approach will be to display the image inside a CALayer. To do that, use the following code:
+There are a number of ways to display sprite image loaded using LayerSprites. The simplest approach is to use an LSImageView, which behaves in a similar way to an ordinary UIImageView. Either create an instance of LSImageView using code or Interface Builder, and set the image property using an LSImage, e.g:
+
+    //create image view
+    LSImageView *view = [[LSImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 100)];
+    
+    //set the image
+    view.image = image;
+    
+Or you can create the LSImageView directly with an LSImage, which will automatically set the size to fit the sprite:
+
+     //create image view
+    LSImageView *view = [[LSImageView alloc] initWithImage:image];
+
+Alternatively, you can display an LSImage inside a CALayer. To do that, use the following code:
 
     //create layer
     CALayer *layer = [CALLayer layer];
@@ -205,3 +236,17 @@ Using image sprites with UIKit/Core Graphics
 ---------------------------------------------
 
 Although setting the sprite as a CALayer's contents yields the best performance and memory usage, you can also draw sprites directly into a CGContext using `drawAtPoint:` or `drawInRect:` methods. See the DrawingDemo for an example.
+
+
+Using Xcode 5 / SpriteKit texture atlasses
+---------------------------------------------
+
+LayerSprites can load sprites stored in the Xcode 5 / SpriteKit texture atlas format. To use a texture atlas, first create a folder containing all of your sprite images (both standard and @2x variants) with the extension .atlas, and add it to your project.
+
+Then, in your project build settings, search for "SpriteKit" and set the "Enable Texture Atlas Generation" option (this may appear as SPRITEKIT_TEXTURE_ATLAS_OUTPUT if you have not  yet imported the atlas), with the default "Output Texture Atlas Format" of "RGBA8888_PNG".
+
+There is no need to import the SpriteKit framework. When importing your sprite sheet using the LSImageMap +imageMapWithContentsOfFile method, either specify the file extension "atlasc" (note the "c"), or leave off the path extension and LSImageMap will automatically find the atlas file if available.
+
+You will need to use Xcode 5 or above to generate the atlas files, but they can be loaded and used by LayerSprites for apps running on iOS 4.3 and above - they are not limited to iOS 7.
+
+Check the TextureAtlasDemo for an example of using an Xcode 5 Texture Atlas.

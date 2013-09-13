@@ -13,6 +13,7 @@
 		0103DA05174A2E55007C0D31 /* lostgarden.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0103DA02174A2E55007C0D31 /* lostgarden.plist */; };
 		0103DA06174A2E55007C0D31 /* lostgarden.png in Resources */ = {isa = PBXBuildFile; fileRef = 0103DA03174A2E55007C0D31 /* lostgarden.png */; };
 		0103DA07174A2E55007C0D31 /* lostgarden@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0103DA04174A2E55007C0D31 /* lostgarden@2x.png */; };
+		0149D7B2177B950600884EB3 /* LSImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0149D7B1177B950600884EB3 /* LSImageView.m */; };
 		01A3D78F1747DB0C00ACCD55 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01A3D78E1747DB0C00ACCD55 /* UIKit.framework */; };
 		01A3D7911747DB0C00ACCD55 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01A3D7901747DB0C00ACCD55 /* Foundation.framework */; };
 		01A3D7931747DB0C00ACCD55 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01A3D7921747DB0C00ACCD55 /* CoreGraphics.framework */; };
@@ -35,6 +36,8 @@
 		0103DA02174A2E55007C0D31 /* lostgarden.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = lostgarden.plist; sourceTree = "<group>"; };
 		0103DA03174A2E55007C0D31 /* lostgarden.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lostgarden.png; sourceTree = "<group>"; };
 		0103DA04174A2E55007C0D31 /* lostgarden@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lostgarden@2x.png"; sourceTree = "<group>"; };
+		0149D7B0177B950600884EB3 /* LSImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSImageView.h; sourceTree = "<group>"; };
+		0149D7B1177B950600884EB3 /* LSImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSImageView.m; sourceTree = "<group>"; };
 		01A3D78B1747DB0C00ACCD55 /* SpritesDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpritesDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01A3D78E1747DB0C00ACCD55 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		01A3D7901747DB0C00ACCD55 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -75,6 +78,8 @@
 				0103D9C6174843F8007C0D31 /* LSImage.m */,
 				0103D9C7174843F8007C0D31 /* LSImageMap.h */,
 				0103D9C8174843F8007C0D31 /* LSImageMap.m */,
+				0149D7B0177B950600884EB3 /* LSImageView.h */,
+				0149D7B1177B950600884EB3 /* LSImageView.m */,
 			);
 			name = LayerSprites;
 			path = ../../LayerSprites;
@@ -218,6 +223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				01A3D79B1747DB0C00ACCD55 /* main.m in Sources */,
+				0149D7B2177B950600884EB3 /* LSImageView.m in Sources */,
 				01A3D79F1747DB0C00ACCD55 /* AppDelegate.m in Sources */,
 				01A3D7A81747DB0C00ACCD55 /* ViewController.m in Sources */,
 				0103D9C9174843F8007C0D31 /* LSImage.m in Sources */,

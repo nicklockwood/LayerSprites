@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "LSImageMap.h"
+#import "LSImageView.h"
 #import <QuartzCore/QuartzCore.h>
 
 
@@ -50,7 +51,7 @@
     NSString *name = [self.imageMap imageNameAtIndex:indexPath.row];
     
     //set image (note that we don't set the dimensions here)
-    [[cell viewWithTag:1].layer setContentsWithLSImage:self.imageMap[name]];
+    ((LSImageView *)[cell viewWithTag:1]).image = self.imageMap[name];
     
     //set text
     ((UILabel *)[cell viewWithTag:2]).text = name;

@@ -2,7 +2,7 @@
 //  LSImage.h
 //
 //  LayerSprites Project
-//  Version 1.1
+//  Version 1.2
 //
 //  Created by Nick Lockwood on 18/05/2013.
 //  Copyright 2013 Charcoal Design
@@ -40,6 +40,7 @@
 @property (nonatomic, readonly) CGSize size;
 @property (nonatomic, readonly) CGFloat scale;
 @property (nonatomic, readonly) CGRect contentsRect;
+@property (nonatomic, readonly) CGSize originalSize;
 @property (nonatomic, readonly) CGPoint anchorPoint;
 @property (nonatomic, readonly) CGAffineTransform transform;
 @property (nonatomic, readonly) CGImageRef CGImage;

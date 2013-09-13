@@ -21,10 +21,10 @@
 		0103DA3C174A2F79007C0D31 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0103DA3B174A2F79007C0D31 /* ViewController.m */; };
 		0103DA42174A2FD5007C0D31 /* LSImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0103DA3F174A2FD5007C0D31 /* LSImage.m */; };
 		0103DA43174A2FD5007C0D31 /* LSImageMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 0103DA41174A2FD5007C0D31 /* LSImageMap.m */; };
-		0103DA48174A2FDC007C0D31 /* lostgarden.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0103DA45174A2FDC007C0D31 /* lostgarden.plist */; };
-		0103DA49174A2FDC007C0D31 /* lostgarden.png in Resources */ = {isa = PBXBuildFile; fileRef = 0103DA46174A2FDC007C0D31 /* lostgarden.png */; };
-		0103DA4A174A2FDC007C0D31 /* lostgarden@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0103DA47174A2FDC007C0D31 /* lostgarden@2x.png */; };
 		0103DA4C174A3002007C0D31 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0103DA4B174A3002007C0D31 /* QuartzCore.framework */; };
+		01E5E32217D4E34F00E6E15E /* lostgarden.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01E5E31F17D4E34F00E6E15E /* lostgarden.plist */; };
+		01E5E32317D4E34F00E6E15E /* lostgarden.png in Resources */ = {isa = PBXBuildFile; fileRef = 01E5E32017D4E34F00E6E15E /* lostgarden.png */; };
+		01E5E32417D4E34F00E6E15E /* lostgarden@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01E5E32117D4E34F00E6E15E /* lostgarden@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,10 +50,10 @@
 		0103DA3F174A2FD5007C0D31 /* LSImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSImage.m; sourceTree = "<group>"; };
 		0103DA40174A2FD5007C0D31 /* LSImageMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSImageMap.h; sourceTree = "<group>"; };
 		0103DA41174A2FD5007C0D31 /* LSImageMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSImageMap.m; sourceTree = "<group>"; };
-		0103DA45174A2FDC007C0D31 /* lostgarden.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = lostgarden.plist; sourceTree = "<group>"; };
-		0103DA46174A2FDC007C0D31 /* lostgarden.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lostgarden.png; sourceTree = "<group>"; };
-		0103DA47174A2FDC007C0D31 /* lostgarden@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lostgarden@2x.png"; sourceTree = "<group>"; };
 		0103DA4B174A3002007C0D31 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		01E5E31F17D4E34F00E6E15E /* lostgarden.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = lostgarden.plist; sourceTree = "<group>"; };
+		01E5E32017D4E34F00E6E15E /* lostgarden.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lostgarden.png; sourceTree = "<group>"; };
+		01E5E32117D4E34F00E6E15E /* lostgarden@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lostgarden@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,9 +145,9 @@
 		0103DA44174A2FDC007C0D31 /* ImageMaps */ = {
 			isa = PBXGroup;
 			children = (
-				0103DA45174A2FDC007C0D31 /* lostgarden.plist */,
-				0103DA46174A2FDC007C0D31 /* lostgarden.png */,
-				0103DA47174A2FDC007C0D31 /* lostgarden@2x.png */,
+				01E5E31F17D4E34F00E6E15E /* lostgarden.plist */,
+				01E5E32017D4E34F00E6E15E /* lostgarden.png */,
+				01E5E32117D4E34F00E6E15E /* lostgarden@2x.png */,
 			);
 			name = ImageMaps;
 			path = ../ImageMaps;
@@ -205,13 +205,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0103DA1F174A2F28007C0D31 /* InfoPlist.strings in Resources */,
+				01E5E32417D4E34F00E6E15E /* lostgarden@2x.png in Resources */,
 				0103DA27174A2F29007C0D31 /* Default.png in Resources */,
 				0103DA29174A2F29007C0D31 /* Default@2x.png in Resources */,
 				0103DA2B174A2F29007C0D31 /* Default-568h@2x.png in Resources */,
 				0103DA31174A2F29007C0D31 /* ViewController.xib in Resources */,
-				0103DA48174A2FDC007C0D31 /* lostgarden.plist in Resources */,
-				0103DA49174A2FDC007C0D31 /* lostgarden.png in Resources */,
-				0103DA4A174A2FDC007C0D31 /* lostgarden@2x.png in Resources */,
+				01E5E32317D4E34F00E6E15E /* lostgarden.png in Resources */,
+				01E5E32217D4E34F00E6E15E /* lostgarden.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,6 +316,7 @@
 				GCC_PREFIX_HEADER = "DrawingDemo/DrawingDemo-Prefix.pch";
 				INFOPLIST_FILE = "DrawingDemo/DrawingDemo-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -328,6 +329,7 @@
 				GCC_PREFIX_HEADER = "DrawingDemo/DrawingDemo-Prefix.pch";
 				INFOPLIST_FILE = "DrawingDemo/DrawingDemo-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

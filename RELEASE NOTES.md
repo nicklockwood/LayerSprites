@@ -1,3 +1,8 @@
+Version 1.2
+
+- Added support for loading SpriteKit texture atlasses in Xcode 5 and above
+- Added LSImageView class to simplify use of sprites in UIKit apps
+
 Version 1.1
 
 - Added object subscripting access methods to LSImageMap

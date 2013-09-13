@@ -1,6 +1,6 @@
 LayerSprites
 
-version 1.1, June 25th, 2013
+version 1.2, September 2nd, 2013
 
 Copyright (C) 2013 Charcoal Design
 

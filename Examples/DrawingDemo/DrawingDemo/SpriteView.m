@@ -23,7 +23,7 @@
 
 - (void)awakeFromNib
 {
-    self.imageMap = [LSImageMap imageMapWithContentsOfFile:@"lostgarden.plist"];
+    self.imageMap = [LSImageMap imageMapWithContentsOfFile:@"lostgarden"];
     [self setNeedsDisplay];
 }
 

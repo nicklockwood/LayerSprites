@@ -2,7 +2,7 @@
 //  LSImageMap.h
 //
 //  LayerSprites Project
-//  Version 1.1
+//  Version 1.2
 //
 //  Created by Nick Lockwood on 18/05/2013.
 //  Copyright 2013 Charcoal Design
@@ -41,20 +41,12 @@
 #endif
 
 
-@interface NSString (Private)
-
-- (BOOL)LS_hasRetinaFileSuffix;
-- (NSString *)LS_normalizedPathWithDefaultExtension:(NSString *)extension;
-
-@end
-
-
 @implementation NSString (Private)
 
 - (BOOL)LS_hasRetinaFileSuffix
 {
-    SEL pathScaleSelector = NSSelectorFromString(@"scaleFromSuffix");
-    if ([self respondsToSelector:pathScaleSelector])
+    SEL selector = NSSelectorFromString(@"scaleFromSuffix");
+    if ([self respondsToSelector:selector])
     {
         return [[self valueForKey:@"scaleFromSuffix"] floatValue] == 2.0f;
     }
@@ -66,6 +58,23 @@
         if ([name hasSuffix:@"@2x"]) return YES;
     }
     return NO;
+}
+
+- (NSString *)LS_stringByDeletingRetinaSuffix
+{
+    SEL selector = NSSelectorFromString(@"stringByDeletingRetinaSuffix");
+    if ([self respondsToSelector:selector])
+    {
+        return [self valueForKey:@"stringByDeletingRetinaSuffix"];
+    }
+    NSString *result = [self stringByDeletingPathExtension];
+    if ([result hasSuffix:@"@2x"])
+    {
+        //TODO: handle ~ipad/~iphone
+        result = [result substringToIndex:[result length] - 3];
+        return [result stringByAppendingPathExtension:[self pathExtension]];
+    }
+    return self;
 }
 
 - (NSString *)LS_normalizedPathWithDefaultExtension:(NSString *)extension
@@ -132,7 +141,7 @@
 
 @interface LSImageMap ()
 
-@property (nonatomic, strong) NSArray *imageNames;
+@property (nonatomic, copy) NSArray *imageNames;
 @property (nonatomic, strong) NSMutableDictionary *imagesByName;
 
 @end
@@ -161,20 +170,44 @@
 
 - (LSImageMap *)initWithContentsOfFile:(NSString *)nameOrPath
 {
-    //load image map
-    NSString *dataPath = [nameOrPath LS_normalizedPathWithDefaultExtension:@"plist"];
-    return [self initWithUIImage:nil path:nameOrPath data:[NSData dataWithContentsOfFile:dataPath]];
+    //check for xc texture atlas
+    NSString *dataPath = [nameOrPath LS_normalizedPathWithDefaultExtension:@"atlasc"];
+    if (dataPath && [[dataPath pathExtension] isEqualToString:@"atlasc"])
+    {
+        if ((self = [self init]))
+        {
+            //load atlas
+            NSString *plistPath = [dataPath stringByAppendingPathComponent:[[[dataPath lastPathComponent] stringByDeletingPathExtension] stringByAppendingPathExtension:@"plist"]];
+            NSDictionary *atlas = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+            
+            //add sprites
+            for (NSDictionary *dict in atlas[@"images"])
+            {
+                NSString *imagePath = [dataPath stringByAppendingPathComponent:dict[@"path"]];
+                UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+                [self addFrames:dict[@"subimages"] withUIImage:image scale:1.0f];
+            }
+            
+            //set sorted image names
+            self.imageNames = [[self.imagesByName allKeys] sortedArrayUsingSelector:@selector(compare:)];
+        }
+        return self;
+    }
+    else
+    {
+        //load cocos sprite atlas
+        dataPath = [nameOrPath LS_normalizedPathWithDefaultExtension:@"plist"];
+        return [self initWithUIImage:nil path:nameOrPath dictionary:[NSDictionary dictionaryWithContentsOfFile:dataPath]];
+    }
 }
 
-- (LSImageMap *)initWithUIImage:(UIImage *)image path:(NSString *)path data:(NSData *)data
+- (LSImageMap *)initWithUIImage:(UIImage *)image path:(NSString *)path dictionary:(NSDictionary *)dict
 {
     //calculate scale from path
     NSString *plistPath = [path LS_normalizedPathWithDefaultExtension:@"plist"];
     CGFloat plistScale = [plistPath LS_hasRetinaFileSuffix]? 2.0f: 1.0f;
     CGFloat scale = image.scale / plistScale;
     
-    NSPropertyListFormat format = 0;
-    NSDictionary *dict = data? [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:&format error:NULL]: nil;
     if (dict && [dict isKindOfClass:[NSDictionary class]])
     {
         if (!image)
@@ -182,7 +215,7 @@
             //generate default image path
             path = [path stringByDeletingPathExtension];
             
-            //get metadata
+            //check for cocos format metadata
             NSDictionary *metadata = dict[@"metadata"];
             if (metadata)
             {
@@ -216,75 +249,25 @@
                 
                 //set scale
                 scale = (CGImageGetWidth(image.CGImage) / CGSizeFromString(metadata[@"size"]).width) ?: (image.scale / plistScale);
-            }
+            }      
             else
             {
+                //derive image path from plist file 
                 image = [UIImage imageWithContentsOfFile:[path LS_normalizedPathWithDefaultExtension:@"png"]];
                 scale = image.scale / plistScale;
             }
         }
         
         if (image)
-        {
-            //get texture size
-            CGFloat width = CGImageGetWidth(image.CGImage) / scale;
-            CGFloat height = CGImageGetHeight(image.CGImage) / scale;
-            
+        {            
             //get frames
             NSDictionary *frames = dict[@"frames"];
             if (frames)
             {
                 if ((self = [self init]))
                 {
-                    for (NSString *name in frames)
-                    {
-                        NSDictionary *sprite = frames[name];
-                        
-                        //get contents rect
-                        CGRect contentsRect = CGRectFromString(sprite[@"textureRect"] ?: sprite[@"frame"]);
-                        contentsRect.origin.x /= width;
-                        contentsRect.origin.y /= height;
-                        contentsRect.size.width /= width;
-                        contentsRect.size.height /= height;
-                        
-                        //get rotation
-                        BOOL rotated = [sprite[@"textureRotated"] ?: sprite[@"rotated"] boolValue];
-                        if (rotated && sprite[@"frame"])
-                        {
-                            contentsRect.size = CGSizeMake(contentsRect.size.height * height / width,
-                                                           contentsRect.size.width * width / height);
-                        }
-                        
-                        //get offset
-                        CGPoint anchorPoint = CGPointMake(0.5f, 0.5f);
-                        CGSize offset = CGSizeFromString(sprite[@"spriteOffset"] ?: sprite[@"offset"]);
-                        if (!CGSizeEqualToSize(offset, CGSizeZero))
-                        {
-                            if (rotated)
-                            {
-                                anchorPoint.x -= offset.height / (contentsRect.size.width * width);
-                                anchorPoint.y += offset.width / (contentsRect.size.height * height);
-                            }
-                            else
-                            {
-                                anchorPoint.x -= offset.width / (contentsRect.size.width * width);
-                                anchorPoint.y += offset.height / (contentsRect.size.height * height);
-                            }
-                        }
-                        
-                        //create subimage
-                        LSImage *subimage = [LSImage imageWithUIImage:image
-                                                         contentsRect:contentsRect
-                                                          anchorPoint:anchorPoint
-                                                              rotated:rotated];
-                        
-                        //and image and aliases
-                        self.imagesByName[name] = subimage;
-                        for (NSString *alias in sprite[@"aliases"])
-                        {
-                            self.imagesByName[alias] = subimage;
-                        }
-                    }
+                    //add sprites
+                    [self addFrames:frames withUIImage:image scale:scale];
                     
                     //set sorted image names
                     self.imageNames = [[self.imagesByName allKeys] sortedArrayUsingSelector:@selector(compare:)];
@@ -312,7 +295,105 @@
 
 - (LSImageMap *)initWithUIImage:(UIImage *)image data:(NSData *)data
 {
-    return [self initWithUIImage:image path:nil data:data];
+    NSPropertyListFormat format = 0;
+    NSDictionary *dict = data? [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:&format error:NULL]: nil;
+    return [self initWithUIImage:image path:nil dictionary:dict];
+}
+
+- (void)addFrames:(id)frames withUIImage:(UIImage *)image scale:(CGFloat)scale
+{
+    //get texture size
+    CGFloat width = CGImageGetWidth(image.CGImage) / scale;
+    CGFloat height = CGImageGetHeight(image.CGImage) / scale;
+    
+    for (id item in frames)
+    {
+        //get sprite name and data
+        NSString *name = nil;
+        NSDictionary *sprite = nil;
+        BOOL cocosFormat = [item isKindOfClass:[NSString class]];
+        if (cocosFormat)
+        {
+            name = item;
+            sprite = frames[name];
+        }
+        else
+        {
+            sprite = item;
+            name = [item[@"name"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            if ([name LS_hasRetinaFileSuffix])
+            {
+                name = [name LS_stringByDeletingRetinaSuffix];
+                if (self.imagesByName[name] && [[UIScreen mainScreen] scale] < 2.0f) continue;
+            }
+            else if (self.imagesByName[name])
+            {
+                continue;
+            }
+        }
+        
+        //get contents rect
+        CGRect contentsRect = CGRectFromString(sprite[@"textureRect"] ?: sprite[@"frame"]);
+        contentsRect.origin.x /= width;
+        contentsRect.origin.y /= height;
+        contentsRect.size.width /= width;
+        contentsRect.size.height /= height;
+        
+        //get rotation
+        BOOL rotated = [sprite[@"textureRotated"] ?: sprite[@"rotated"] boolValue];
+        if (rotated && sprite[@"frame"])
+        {
+            contentsRect.size = CGSizeMake(contentsRect.size.height * height / width,
+                                           contentsRect.size.width * width / height);
+        }
+        
+        //get offset
+        CGPoint anchorPoint = CGPointMake(0.5f, 0.5f);
+        CGSize offset = CGSizeFromString(sprite[@"spriteOffset"] ?: sprite[@"offset"]);
+        if (cocosFormat)
+        {
+            if (!CGSizeEqualToSize(offset, CGSizeZero))
+            {
+                if (rotated)
+                {
+                    anchorPoint.x -= offset.height / (contentsRect.size.width * width);
+                    anchorPoint.y += offset.width / (contentsRect.size.height * height);
+                }
+                else
+                {
+                    anchorPoint.x -= offset.width / (contentsRect.size.width * width);
+                    anchorPoint.y += offset.height / (contentsRect.size.height * height);
+                }
+            }
+        }
+        else
+        {
+            CGSize sourceSize = CGSizeFromString(sprite[@"spriteSourceSize"]);
+            if (rotated)
+            {
+                anchorPoint.x -= (offset.height + (contentsRect.size.width * width / 2.0) - (sourceSize.height / 2.0)) / (contentsRect.size.width * width);
+                anchorPoint.y -= (offset.width + (contentsRect.size.height * height / 2.0) - (sourceSize.width / 2.0)) / (contentsRect.size.height * height);
+            }
+            else
+            {
+                anchorPoint.x += (offset.width + (contentsRect.size.width * width / 2.0) - (sourceSize.width / 2.0)) / (contentsRect.size.width * width);
+                anchorPoint.y += (offset.height + (contentsRect.size.height * height / 2.0) - (sourceSize.height / 2.0)) / (contentsRect.size.height * height);
+            }
+        }
+        
+        //create subimage
+        LSImage *subimage = [LSImage imageWithUIImage:image
+                                         contentsRect:contentsRect
+                                          anchorPoint:anchorPoint
+                                              rotated:rotated];
+        
+        //and image and aliases
+        self.imagesByName[name] = subimage;
+        for (NSString *alias in sprite[@"aliases"])
+        {
+            self.imagesByName[alias] = subimage;
+        }
+    }
 }
 
 - (NSInteger)imageCount
